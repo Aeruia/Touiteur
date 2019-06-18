@@ -1,16 +1,14 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,16 +16,63 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+h1 {
+  letter-spacing: 0.5em;
+  font-weight: bold;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.SendingMessage {
+  min-height: 10vh;
+}
+.main {
+  width: 90vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+.trendingContainer {
+  width: 20%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  align-content: baseline;
+}
+.word {
+  margin-right: 5px;
+  padding-right: 3px;
+  padding-left: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  background-color: rgba(225, 233, 236, 0.541);
+}
+.touiteurContainer {
+  background-color: antiquewhite;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 5px;
+  width: 70%;
+}
+.touit {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px;
+  min-width: 100px;
+  box-shadow: 5px 5px grey;
+  flex-wrap: wrap;
+  transition: all 0.07s;
+}
+.touit :first-child {
+  text-align: center;
+  padding: 0px;
+  word-break: break-all;
+  width: 100%;
+}
+.touit :last-child {
+  align-self: end;
+  font-size: 0.8em;
+  font-style: italic;
+  margin-bottom: 0px;
+}
+.touit:hover {
+  transform: scale(1.03);
 }

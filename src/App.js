@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import TouitContainer from "./components/TouitContainer";
+import Header from "./components/Header";
+import SendMessage from "./components/SendMessageForm";
+import Trending from "./components/Trending";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Header />
       </header>
+      <SendMessage />
+      <div className="main">
+        <Trending />
+        <TouitContainer />
+      </div>
     </div>
   );
 }
