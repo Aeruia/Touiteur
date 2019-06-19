@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import TouiteurAPI from "./../api/TouiteurAPI";
 
-class SendMessage extends Component {
+class SendComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      message: ""
+      comment: ""
     };
   }
   onChange = e => {
@@ -14,21 +14,22 @@ class SendMessage extends Component {
   };
 
   render() {
-    const { name, message } = this.state;
+    const { name, comment } = this.state;
     return (
       <form
         onSubmit={event => {
           event.preventDefault();
-          TouiteurAPI.sendMessages(name, message);
+          console.log(event.target);
+          TouiteurAPI.sendComment(name, comment, event.target.parentElement.id);
           this.setState({
             name: "",
-            message: ""
+            comment: ""
           });
         }}
-        className="SendingMessage"
+        className="SendingComment"
       >
         <input
-          className="sendMessageName"
+          className="sendCommentName"
           name="name"
           type="text"
           value={name}
@@ -36,11 +37,11 @@ class SendMessage extends Component {
           onChange={this.onChange}
         />
         <input
-          className="sendMessageMessage"
-          name="message"
+          className="sendCommentComment"
+          name="comment"
           type="text"
-          value={message}
-          placeholder="Message"
+          value={comment}
+          placeholder="Comment"
           onChange={this.onChange}
         />
         <input className="sendButton" type="submit" value="Send" />
@@ -48,4 +49,4 @@ class SendMessage extends Component {
     );
   }
 }
-export default SendMessage;
+export default SendComment;

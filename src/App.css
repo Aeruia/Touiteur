@@ -1,10 +1,12 @@
+/* APP CSS */
 .App {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url("./images/Background.jpg");
 }
-
+/* Header */
 .App-header {
   background-color: #282c34;
   width: 100%;
@@ -18,16 +20,67 @@
 }
 h1 {
   letter-spacing: 0.5em;
-  font-weight: bold;
+  font-weight: bolder;
 }
+/* Send message form */
 .SendingMessage {
   min-height: 10vh;
+  min-width: 70vw;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 5px;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
+.sendMessageName {
+  font-size: 1.5em;
+  border-radius: 5px;
+}
+.sendMessageMessage {
+  font-size: 1.5em;
+  flex: 1;
+  border-radius: 5px;
+}
+.sendButton {
+  font-size: 1.5em;
+  border-radius: 5px;
+}
+/* Main window */
 .main {
   width: 90vw;
   display: flex;
   justify-content: space-evenly;
 }
+/* Bouncing Loade */
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translate3d(0, -1rem, 0);
+  }
+}
+.bouncing-loader {
+  display: flex;
+  justify-content: center;
+}
+.bouncing-loader > div {
+  width: 1rem;
+  height: 1rem;
+  margin: 3rem 0.2rem;
+  background: #8385aa;
+  border-radius: 50%;
+  animation: bouncing-loader 0.6s infinite alternate;
+}
+.bouncing-loader > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.bouncing-loader > div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Container for trending words */
+
 .trendingContainer {
   width: 20%;
   display: flex;
@@ -41,10 +94,15 @@ h1 {
   padding-left: 3px;
   margin-bottom: 3px;
   margin-top: 3px;
-  background-color: rgba(225, 233, 236, 0.541);
+  box-shadow: 5px 5px grey;
+  flex-wrap: wrap;
+  transition: all 0.05s;
 }
+.word:hover {
+  transform: rotate(10deg);
+}
+/* Container for tweets */
 .touiteurContainer {
-  background-color: antiquewhite;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -75,4 +133,41 @@ h1 {
 }
 .touit:hover {
   transform: scale(1.03);
+}
+
+.influencers {
+  -webkit-animation: rotate 0.5s alternate infinite;
+  animation: rotate 0.5s alternate infinite;
+}
+@-webkit-keyframes rotate {
+  to {
+    -webkit-transform: rotate(10deg);
+  }
+}
+@keyframes rotate {
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+.touitMessage {
+  display: inline-block;
+  position: relative;
+  color: #070707;
+}
+.touitMessage:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #0087ca;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.touitMessage:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
