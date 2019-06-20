@@ -1,14 +1,11 @@
 import React from "react";
-
-import ReactDOM from "react-dom";
-import SendComment from "./SendCommentForm";
-import heart from "./../images/heart.jpg";
+import Comment from "./Comment";
+import Likes from "./Likes";
 
 class Touit extends React.Component {
   constructor(props) {
     super(props);
     this.state = { showComment: false, messageid: 0 };
-
     this.handleClickComment = this.handleClickComment.bind(this);
   }
   handleClickComment(e) {
@@ -18,13 +15,11 @@ class Touit extends React.Component {
     });
     e.target.parentElement.className = "touit";
   }
-  handleClickLikes(e) {
-    console.log(e.target.parentElement.id);
-    console.log(e.target);
-  }
+
   render() {
     let random = () => Math.floor(Math.random() * (255 - 40) + 40);
     let color = () => `rgb(${random()}, ${random()}, ${random()})`;
+    const { showComment, messageid } = this.state;
     return (
       <div
         className={this.props.className}
@@ -32,23 +27,12 @@ class Touit extends React.Component {
         id={this.props.messageid}
       >
         <div className="touitMessage">{this.props.message}</div>
-        <button className="Comment" onClick={this.handleClickComment}>
+        <div className="touitName">{this.props.name}</div>
+        <Likes messageid={this.props.messageid} likes={this.props.likes} />
+        <button className="commentButton" onClick={this.handleClickComment}>
           Comment
         </button>
-
-        {this.state.showComment ? <SendComment /> : null}
-
-        <div className="touitName">{this.props.name}</div>
-        <div className="likes">
-          <img
-            style={{ width: 30 }}
-            src={heart}
-            onClick={this.handleClickLikes}
-            alt="like"
-            defaultValue={0}
-          />
-          {this.props.likes}
-        </div>
+        {showComment ? <Comment messageid={messageid} /> : null}
       </div>
     );
   }

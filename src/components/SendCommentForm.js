@@ -19,8 +19,7 @@ class SendComment extends Component {
       <form
         onSubmit={event => {
           event.preventDefault();
-          console.log(event.target);
-          TouiteurAPI.sendComment(name, comment, event.target.parentElement.id);
+          TouiteurAPI.sendComment(name, comment, this.props.messageid);
           this.setState({
             name: "",
             comment: ""

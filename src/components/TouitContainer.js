@@ -2,15 +2,32 @@ import React from "react";
 import TouiteurAPI from "./../api/TouiteurAPI";
 import Touit from "./../components/Touit";
 import { isNull } from "util";
+import thunder from "./../audio/Thunder.mp3";
+import alienSpaceship from "./../audio/alien-spaceship.mp3";
+import demonGirls from "./../audio/Demon_Girls.mp3";
+import evilLaugh from "./../audio/Evil_laugh_1.mp3";
+import evilLaugh1 from "./../audio/Evil_laugh.mp3";
+import incomingSuspense from "./../audio/Incoming_Suspense.mp3";
+import relentless from "./../audio/relentless.mp3";
+import sickVilain from "./../audio/Sick_Villain.mp3";
 
 class TouitContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.sounds = [
+      demonGirls,
+      thunder,
+      alienSpaceship,
+      evilLaugh,
+      evilLaugh1,
+      incomingSuspense,
+      relentless,
+      sickVilain
+    ];
     this.state = {
       error: null,
       isLoaded: false,
       messages: [],
-      newmessages: [],
       timestamp: 0,
       word: window.location.hash
     };
@@ -30,6 +47,9 @@ class TouitContainer extends React.Component {
               timestamp: result.ts,
               messages: [...this.state.messages, ...result.messages]
             });
+            let randomSound = Math.floor(Math.random() * 7);
+            var audio = new Audio(this.sounds[randomSound]);
+            audio.play();
             TouiteurAPI.influencers(
               result => {
                 this.setState({
@@ -54,7 +74,7 @@ class TouitContainer extends React.Component {
         },
         this.state.timestamp
       );
-    }, 1000);
+    }, 5000);
   }
   componentWillMount() {}
   // My variant to get influencers
@@ -103,7 +123,9 @@ class TouitContainer extends React.Component {
     } else if (word !== isNull) {
       let messagesWithWord;
       let re = new RegExp("\\b(" + word.substring(1) + ")\\b", "gi");
-      messagesWithWord = messages.filter(message => message.message.match(re));
+      messagesWithWord = messages.filter(
+        message => message.message.match(re) || message.name.match(re)
+      );
 
       return (
         <div className="touiteurContainer">

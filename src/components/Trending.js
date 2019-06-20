@@ -26,16 +26,20 @@ class Trending extends React.Component {
           });
         }
       );
-    }, 100000);
+    }, 10000);
   }
   componentWillUnmount() {}
   handleClick(e) {
     e.preventDefault();
     window.location.hash = e.target.textContent;
   }
+
   render() {
     window.onclick = e => {
-      if (e.target.className !== "trendingWord") {
+      if (
+        e.target.className !== "trendingWord" &&
+        e.target.className !== "suggestion"
+      ) {
         window.location.hash = "";
       }
     }; // remove hash from URL
@@ -48,7 +52,7 @@ class Trending extends React.Component {
       return b[1] - a[1];
     });
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div>Error: {this.state.message}</div>;
     } else if (!isLoaded) {
       return (
         <div className="bouncing-loader">
