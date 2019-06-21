@@ -2,28 +2,11 @@ import React from "react";
 import TouiteurAPI from "./../api/TouiteurAPI";
 import Touit from "./../components/Touit";
 import { isNull } from "util";
-import thunder from "./../audio/Thunder.mp3";
-import alienSpaceship from "./../audio/alien-spaceship.mp3";
-import demonGirls from "./../audio/Demon_Girls.mp3";
-import evilLaugh from "./../audio/Evil_laugh_1.mp3";
-import evilLaugh1 from "./../audio/Evil_laugh.mp3";
-import incomingSuspense from "./../audio/Incoming_Suspense.mp3";
-import relentless from "./../audio/relentless.mp3";
-import sickVilain from "./../audio/Sick_Villain.mp3";
+import soundfile from "./../audio/relentless.mp3";
 
 class TouitContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.sounds = [
-      demonGirls,
-      thunder,
-      alienSpaceship,
-      evilLaugh,
-      evilLaugh1,
-      incomingSuspense,
-      relentless,
-      sickVilain
-    ];
     this.state = {
       error: null,
       isLoaded: false,
@@ -36,7 +19,7 @@ class TouitContainer extends React.Component {
     setInterval(() => {
       if (this.state.word !== window.location.hash) {
         this.setState({
-          word: window.location.hash
+          word: window.location.hash.substring(1)
         });
       }
       TouiteurAPI.getMessages(
@@ -47,9 +30,8 @@ class TouitContainer extends React.Component {
               timestamp: result.ts,
               messages: [...this.state.messages, ...result.messages]
             });
-            let randomSound = Math.floor(Math.random() * 7);
-            var audio = new Audio(this.sounds[randomSound]);
-            audio.play();
+            var audio = new Audio(soundfile);
+            if (result.messages.length !== 0) audio.play();
             TouiteurAPI.influencers(
               result => {
                 this.setState({
@@ -74,9 +56,9 @@ class TouitContainer extends React.Component {
         },
         this.state.timestamp
       );
-    }, 5000);
+    }, 10000);
   }
-  componentWillMount() {}
+  componentWillUnmount() {}
   // My variant to get influencers
   // getInfluencers() {
   //   const { messages } = this.state;
@@ -104,6 +86,7 @@ class TouitContainer extends React.Component {
   // }
   render() {
     const { error, isLoaded, messages, influencers, word } = this.state;
+    console.log(messages);
     let namesOfInfluencers = [];
     if (typeof influencers !== "undefined") {
       Object.entries(influencers).map(influencers =>
@@ -120,9 +103,9 @@ class TouitContainer extends React.Component {
           <div />
         </div>
       );
-    } else if (word !== isNull) {
+    } else if (word.length !== 0) {
       let messagesWithWord;
-      let re = new RegExp("\\b(" + word.substring(1) + ")\\b", "gi");
+      let re = new RegExp("\\b(" + word + ")\\b", "gi");
       messagesWithWord = messages.filter(
         message => message.message.match(re) || message.name.match(re)
       );
@@ -139,7 +122,6 @@ class TouitContainer extends React.Component {
                     ? "touit influencers"
                     : "touit"
                 }
-                key={message.id}
                 messageid={message.id}
                 name={message.name}
                 message={message.message}
@@ -161,7 +143,6 @@ class TouitContainer extends React.Component {
                     ? "touit influencers"
                     : "touit"
                 }
-                key={message.id}
                 messageid={message.id}
                 name={message.name}
                 message={message.message}

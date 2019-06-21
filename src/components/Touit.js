@@ -18,12 +18,12 @@ class Touit extends React.Component {
 
   render() {
     let random = () => Math.floor(Math.random() * (255 - 40) + 40);
-    let color = () => `rgb(${random()}, ${random()}, ${random()})`;
+    let color = `rgb(${random()}, ${random()}, ${random()})`;
     const { showComment, messageid } = this.state;
     return (
       <div
         className={this.props.className}
-        style={{ backgroundColor: color() }}
+        style={{ backgroundColor: color }}
         id={this.props.messageid}
       >
         <div className="touitMessage">{this.props.message}</div>

@@ -1,8 +1,11 @@
+import { async } from "q";
+
 const URL = "touiteur.cefim-formation.org";
 class TouiteurAPI {
   //Get messages
-  static getMessages = (success, error, timestamp) => {
-    fetch("http://" + URL + "/list?ts=" + encodeURIComponent(timestamp))
+
+  static getMessages = async (success, error, timestamp) => {
+    await fetch("http://" + URL + "/list?ts=" + encodeURIComponent(timestamp))
       .then(res => res.json())
       .then(
         result => {
